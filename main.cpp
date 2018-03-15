@@ -2,10 +2,10 @@
 #include <string>
 #include <cstdlib>
 #include <cmath>
+#include <cstring>
 
 int main()
 {
-
     int key;
     std::string text;
     std::string decryptedText;
@@ -34,23 +34,37 @@ int main()
     }
     std::cout<<decryptedText<<std::endl;
 
-    std::cout<<"If you want to encrypt this text press enter vlid key :";
+    std::cout<<"If you want to decrypt this text press enter valid key :";
     std::cin>>key;
-    for(int i=0, n=decryptedText.length(); i<n; ++i)
-    {
-        if(isalpha(decryptedText[i]))
-        {
-            int offset=65;
-            if (islower(decryptedText[i]))
-             offset = 97;
 
-            int cipheredLetter = ((reinterpret_cast<int>(decryptedText[i] - offset - key) % 26) + offset);
+    char message[100], ch;
+        int i;
 
-            encryptedText+= cipheredLetter;
+        std::strcpy(message, decryptedText.c_str());
+
+        for(i = 0; message[i] != '\0'; ++i){
+            ch = message[i];
+
+            if(ch >= 'a' && ch <= 'z'){
+                ch = ch - key;
+
+                if(ch < 'a'){
+                    ch = ch + 'z' - 'a' + 1;
+                }
+
+                message[i] = ch;
+            }
+            else if(ch >= 'A' && ch <= 'Z'){
+                ch = ch - key;
+
+                if(ch > 'a'){
+                    ch = ch + 'Z' - 'A' + 1;
+                }
+
+                message[i] = ch;
+            }
         }
-        else encryptedText += text[i];
-    }
-    std::cout<<encryptedText<<std::endl;
 
+        std::cout << "Decrypted message: " << message<<std::endl;
     return 0;
 }
