@@ -13,6 +13,7 @@ int main()
 
     std::cout<<"Please enter the key: ";
     std::cin>>key;
+    key%=26;
 
     std::cout<<"Enter text to encrypt : ";
     std::cin.ignore();
@@ -36,6 +37,7 @@ int main()
 
     std::cout<<"If you want to decrypt this text press enter valid key :";
     std::cin>>key;
+    key%=26;
 
     char message[100], ch;
         int i;
